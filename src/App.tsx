@@ -1,25 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+} from 'react-router-dom';
+import axios from 'axios';
 
-const App: React.FC = () => {
+import AddressesRouter from './components/addresses/Addresses.router';
+import CategoriesRouter from './components/categories/Categories.router';
+import OrdersRouter from './components/orders/Orders.router';
+import OrderElementsRouter from './components/orderElements/OrderElements.router';
+import ProductsRouter from './components/products/Products.router';
+import './App.scss';
+
+axios.defaults.baseURL = 'http://localhost:9000';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/addresses" component={AddressesRouter} />
+        <Route path="/categories" component={CategoriesRouter} />
+        <Route path="/orders" component={OrdersRouter} />
+        <Route path="/orderElements" component={OrderElementsRouter} />
+        <Route path="/products" component={ProductsRouter} />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
