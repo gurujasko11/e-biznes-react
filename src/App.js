@@ -7,6 +7,8 @@ import User from "./User";
 import Order from "./Order";
 import OrderElement from "./OrderElement";
 import Product from "./Product";
+import Login from "./Login";
+
 
 import {
   BrowserRouter as Router,
@@ -15,7 +17,7 @@ import {
 } from 'react-router-dom';
 
 var logged = <li> <a href="http://localhost:9000/signOut">Wyloguj</a>  </li>;
-var unlogged = <li> <Link to="/logowanie">Zaloguj</Link>  </li>;
+var unlogged = <li> <Link to="/login">Zaloguj</Link>  </li>;
 class App extends React.Component {
 
   constructor(props) {
@@ -33,17 +35,17 @@ class App extends React.Component {
   }
 
   getData() {
-    // fetch("http://localhost:9000/isLogged", {credentials:"include"})
-    //     .then(res => res.json())
-    //     .then(
-    //         (result) => {
-    //           this.setState({loggedIn:logged})
-    //
-    //         },
-    //         (error) => {
-    //           this.setState({loggedIn:unlogged})
-    //         }
-    //     )
+    fetch("http://localhost:9000/isLogged", {credentials:"include"})
+        .then(res => res.json())
+        .then(
+            (result) => {
+              this.setState({loggedIn:logged})
+
+            },
+            (error) => {
+              this.setState({loggedIn:unlogged})
+            }
+        )
   }
 
   render() {
@@ -82,7 +84,7 @@ class App extends React.Component {
             <Route path="/orders" component={Order}/>
             <Route path="/order_elements" component={OrderElement}/>
             <Route path="/products" component={Product}/>
-
+            <Route path="/login" component={Login}/>
           </div>
         </Router>
     )
