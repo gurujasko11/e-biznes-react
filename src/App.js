@@ -1,94 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Address from "./Address";
-import Category from "./Category";
-import User from "./User";
-import Order from "./Order";
-import OrderElement from "./OrderElement";
-import Product from "./Product";
-import Login from "./Login";
+import React, {Component} from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {browserHistory, Router} from "react-router";
+import AddProduct from "./components/admin/AddProduct";
+import OrderDetails from "./components/OrderDetails";
+import Order from "./components/Order";
+import Product from "./components/Product";
+import AddCategory from "./components/admin/AddCategory";
+import Cart from "./components/Cart";
+import Home from "./components/Home";
+import Navbar from "./components/Navbar";
+import UserOrders from "./components/UserOrders";
+import AdminPanel from "./components/admin/AdminPanel";
+import EditProducts from "./components/admin/EditProducts";
+import EditCategories from "./components/admin/EditCategories";
+import EditOrders from "./components/admin/EditOrders";
+import DeleteProduct from "./components/admin/DeleteProduct";
+import DeleteCategory from "./components/admin/DeleteCategory";
+import DeleteOrder from "./components/admin/DeleteOrder";
+import DeleteUser from "./components/admin/DeleteUser";
+import EditUsers from "./components/admin/EditUsers";
+import LoginHome from "./components/LoginHome";
+import Registration from "./components/Registration";
+
+class App extends Component {
 
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+    render() {
+        return (
+            <BrowserRouter>
+                <div className="App">
+                    <Navbar/>
+                    <Switch>
+                        {/*<Router history={browserHistory}>*/}
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/cart" component={Cart}/>
+                            <Route path="/order" component={Order}/>
+                            <Route path="/orderDetails" component={OrderDetails}/>
+                            <Route path="/userOrders" component={UserOrders}/>
 
-var logged = <li> <a href="http://localhost:9000/signOut">Wyloguj</a>  </li>;
-var unlogged = <li> <Link to="/login">Zaloguj</Link>  </li>;
-class App extends React.Component {
+                            <Route path="/adminPanel" component={AdminPanel}/>
+                            <Route path="/addProduct" component={AddProduct}/>
+                            <Route path="/addCategory" component={AddCategory}/>
+                            <Route path="/editProducts" component={EditProducts}/>
+                            <Route path="/editCategories" component={EditCategories}/>
+                            <Route path="/editOrders" component={EditOrders}/>
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      state:null,
-      error: null,
-      isLoaded: false,
-      data:null,
-      loggedIn:null
-    };
-  }
-  componentDidMount() {
-    this.getData();
-  }
+                            <Route path="/DeleteProduct" component={DeleteProduct}/>
+                            <Route path="/DeleteCategory" component={DeleteCategory}/>
+                            <Route path="/DeleteOrder" component={DeleteOrder}/>
+                            <Route path="/DeleteUser" component={DeleteUser}/>
 
-  getData() {
-    fetch("http://localhost:9000/isLogged", {credentials:"include"})
-        .then(res => res.json())
-        .then(
-            (result) => {
-              this.setState({loggedIn:logged})
+                            <Route path="/product/:productId" component={Product}/>
+                            <Route path="/login" component={LoginHome}/>
+                            <Route path="/registration" component={Registration}/>
+                        {/*</Router>*/}
+                    </Switch>
+                </div>
+            </BrowserRouter>
 
-            },
-            (error) => {
-              this.setState({loggedIn:unlogged})
-            }
-        )
-  }
-
-  render() {
-    return (
-        <Router>
-          <div className="container">
-
-            <ul className="menu">
-
-              <li>
-                <Link to="/addresses">addresses</Link>
-              </li>
-              <li>
-                <Link to="/categories">categories</Link>
-              </li>
-              <li>
-                <Link to="/users">users</Link>
-              </li>
-              <li>
-                <Link to="/orders">orders</Link>
-              </li>
-              <li>
-                <Link to="/order_elements">order elements</Link>
-              </li>
-              <li>
-                <Link to="/products">products</Link>
-              </li>
-
-              {this.state.loggedIn}
-            </ul>
-            {/*<img className="profilowe" src={logo} alt='Zdjęcie profilowe'/>*/}
-
-            <Route path="/addresses" component={Address}/>
-            <Route path="/categories" component={Category}/>
-            <Route path="/users" component={User}/>
-            <Route path="/orders" component={Order}/>
-            <Route path="/order_elements" component={OrderElement}/>
-            <Route path="/products" component={Product}/>
-            <Route path="/login" component={Login}/>
-          </div>
-        </Router>
-    )
-  }
+        );
+    }
 }
 
 export default App;
